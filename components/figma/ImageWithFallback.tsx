@@ -37,15 +37,21 @@ export function ImageWithFallback({ src, alt, className, ...rest }: ImageWithFal
   }
 
   // For local images, use Next.js Image component
+  const width = typeof rest.width === 'number' ? rest.width : typeof rest.width === 'string' ? parseInt(rest.width, 10) || 800 : 800;
+  const height = typeof rest.height === 'number' ? rest.height : typeof rest.height === 'string' ? parseInt(rest.height, 10) || 600 : 600;
+  
+  // Remove width and height from rest to avoid conflicts
+  const { width: _, height: __, ...imageProps } = rest;
+  
   return (
     <Image
       src={imgSrc}
       alt={alt}
       className={className}
       onError={handleError}
-      width={rest.width as number || 800}
-      height={rest.height as number || 600}
-      {...rest}
+      width={width}
+      height={height}
+      {...imageProps}
     />
   );
 }
