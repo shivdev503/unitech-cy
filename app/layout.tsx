@@ -1,0 +1,26 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import { Providers } from "./providers";
+
+export const metadata: Metadata = {
+  title: "UNITECHCYBER - Modern IT Hardware & Cybersecurity Solutions",
+  description: "Future-Ready IT Solutions for Businesses. Professional IT Hardware Services, Cybersecurity, Network Setup, and Web Development.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-[#0A0A12] text-white overflow-x-hidden">
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  );
+}
+
+

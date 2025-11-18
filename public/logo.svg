@@ -1,0 +1,42 @@
+<svg width="40" height="48" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield shape -->
+  <path d="M20 2L4 8V22C4 32 10 40.5 20 46C30 40.5 36 32 36 22V8L20 2Z" fill="url(#shieldGradient)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+  
+  <!-- Circuit board pattern inside shield -->
+  <g opacity="0.9">
+    <!-- Left curve -->
+    <path d="M20 38Q12 34 8 28" stroke="url(#circuitGradient)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="8" cy="28" r="3" fill="url(#circuitGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    
+    <!-- Middle curve -->
+    <path d="M20 38Q20 32 20 26" stroke="url(#circuitGradient)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="20" cy="26" r="3" fill="url(#circuitGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    
+    <!-- Right curve -->
+    <path d="M20 38Q28 34 32 28" stroke="url(#circuitGradient)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="32" cy="28" r="3" fill="url(#circuitGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  </g>
+  
+  <!-- Glow effect -->
+  <defs>
+    <linearGradient id="shieldGradient" x1="20" y1="2" x2="20" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9CA3AF" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#6B7280" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#4B5563" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="circuitGradient" x1="8" y1="28" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9CA3AF" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#6B7280" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#9CA3AF" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
+
+

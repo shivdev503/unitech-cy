@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="500" viewBox="0 0 1400 500">
+  <defs>
+    <style>
+      .text { 
+        font-family: 'Poppins', Arial, sans-serif; 
+        font-weight: 700; 
+        font-size: 120px; 
+        fill: #FFFFFF;
+        letter-spacing: 4px;
+      }
+      .line { 
+        stroke: #FFFFFF; 
+        stroke-width: 18; 
+        fill: none; 
+        stroke-linecap: round; 
+        stroke-linejoin: round;
+      }
+      .node {
+        fill: #FFFFFF;
+      }
+    </style>
+  </defs>
+
+  <!-- Shield Outer -->
+  <path class="line" d="M220 40 L280 60 C310 75 330 110 340 150 
+    C350 210 330 280 260 330 C220 360 200 360 160 330 
+    C95 280 80 210 90 150 C100 110 125 75 160 55 Z"/>
+
+  <!-- Circuit Left -->
+  <path class="line" d="M165 250 C180 215 195 185 220 150"/>
+  <circle class="node" cx="220" cy="150" r="12" />
+
+  <!-- Circuit Middle -->
+  <path class="line" d="M205 250 C225 210 245 185 275 145"/>
+  <circle class="node" cx="275" cy="145" r="12" />
+
+  <!-- Circuit Right -->
+  <path class="line" d="M245 250 C265 220 285 195 310 165"/>
+  <circle class="node" cx="310" cy="165" r="12" />
+
+  <!-- Company Name -->
+  <text x="420" y="265" class="text">UNITECHCYBER</text>
+</svg>
