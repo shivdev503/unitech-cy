@@ -57,20 +57,15 @@ export default function Header({ onOpenModal }: HeaderProps) {
             >
               <div className="relative w-54 h-12 flex-shrink-0">
                 <Image
-                  src="/cyberlogo5.svg"
+                  src="/cyberlogo6.svg"
                   alt="UNITECHCYBER Logo"
                   width={200}
                   height={60}
                   className="drop-shadow-[0_0_8px_rgba(123,46,255,0.5)]"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#7B2EFF]/30 to-[#00E0FF]/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              {/* <span className="bg-gradient-to-r from-[#7B2EFF] via-[#00E0FF] to-[#7B2EFF] bg-clip-text text-transparent tracking-wider font-semibold text-lg">
-                UNITECHCYBER
-              </span> */}
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#7B2EFF]/20 to-[#00E0FF]/20 blur-xl group-hover:blur-2xl transition-all opacity-0 group-hover:opacity-100" />
           </Link>
 
           {/* Desktop Navigation */}

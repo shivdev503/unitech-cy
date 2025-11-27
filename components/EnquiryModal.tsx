@@ -2,11 +2,19 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle } from 'lucide-react';
+import { X, Send, CheckCircle, Loader2 } from 'lucide-react';
 
 interface EnquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  service?: string;
+  message?: string;
 }
 
 export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
@@ -18,6 +26,10 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const services = [
     'IT Hardware Maintenance',
@@ -28,27 +40,211 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
     'Website Development',
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Validation functions
+  const validateName = (name: string): string | undefined => {
+    if (!name.trim()) {
+      return 'Name is required';
+    }
+    if (name.trim().length < 2) {
+      return 'Name must be at least 2 characters';
+    }
+    if (name.trim().length > 50) {
+      return 'Name must be less than 50 characters';
+    }
+    if (!/^[a-zA-Z\s'-]+$/.test(name.trim())) {
+      return 'Name can only contain letters, spaces, hyphens, and apostrophes';
+    }
+    return undefined;
+  };
+
+  const validateEmail = (email: string): string | undefined => {
+    if (!email.trim()) {
+      return 'Email is required';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return 'Please enter a valid email address';
+    }
+    if (email.trim().length > 100) {
+      return 'Email must be less than 100 characters';
+    }
+    return undefined;
+  };
+
+  const validatePhone = (phone: string): string | undefined => {
+    if (!phone.trim()) {
+      return 'Phone number is required';
+    }
+    // Remove spaces, dashes, parentheses, and plus signs for validation
+    const cleanedPhone = phone.replace(/[\s\-\(\)\+]/g, '');
+    // Allow digits only, 7-15 digits (international format)
+    if (!/^\d{7,15}$/.test(cleanedPhone)) {
+      return 'Please enter a valid phone number (7-15 digits)';
+    }
+    return undefined;
+  };
+
+  const validateService = (service: string): string | undefined => {
+    if (!service.trim()) {
+      return 'Please select a service';
+    }
+    return undefined;
+  };
+
+  const validateMessage = (message: string): string | undefined => {
+    if (message.trim().length > 500) {
+      return 'Message must be less than 500 characters';
+    }
+    return undefined;
+  };
+
+  // Validate all fields
+  const validateForm = (): boolean => {
+    const errors: FieldErrors = {};
+    
+    const nameError = validateName(formData.name);
+    if (nameError) errors.name = nameError;
+    
+    const emailError = validateEmail(formData.email);
+    if (emailError) errors.email = emailError;
+    
+    const phoneError = validatePhone(formData.phone);
+    if (phoneError) errors.phone = phoneError;
+    
+    const serviceError = validateService(formData.service);
+    if (serviceError) errors.service = serviceError;
+    
+    const messageError = validateMessage(formData.message);
+    if (messageError) errors.message = messageError;
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: '',
+    setError(null);
+    
+    // Mark all fields as touched
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      service: true,
+      message: true,
+    });
+
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/submit-enquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 2000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit enquiry');
+      }
+
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        onClose();
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: '',
+        });
+        setFieldErrors({});
+        setTouched({});
+      }, 2000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    
+    // Clear general error when user starts typing
+    if (error) setError(null);
+    
+    // Validate field in real-time if it has been touched
+    if (touched[name]) {
+      let fieldError: string | undefined;
+      
+      switch (name) {
+        case 'name':
+          fieldError = validateName(value);
+          break;
+        case 'email':
+          fieldError = validateEmail(value);
+          break;
+        case 'phone':
+          fieldError = validatePhone(value);
+          break;
+        case 'service':
+          fieldError = validateService(value);
+          break;
+        case 'message':
+          fieldError = validateMessage(value);
+          break;
+      }
+      
+      setFieldErrors(prev => ({
+        ...prev,
+        [name]: fieldError,
+      }));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    
+    // Validate the field on blur
+    let fieldError: string | undefined;
+    
+    switch (name) {
+      case 'name':
+        fieldError = validateName(value);
+        break;
+      case 'email':
+        fieldError = validateEmail(value);
+        break;
+      case 'phone':
+        fieldError = validatePhone(value);
+        break;
+      case 'service':
+        fieldError = validateService(value);
+        break;
+      case 'message':
+        fieldError = validateMessage(value);
+        break;
+    }
+    
+    setFieldErrors(prev => ({
+      ...prev,
+      [name]: fieldError,
+    }));
   };
 
   return (
@@ -92,6 +288,16 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                     </p>
                   </div>
 
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm"
+                    >
+                      {error}
+                    </motion.div>
+                  )}
+
                   <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                       <div>
@@ -105,9 +311,24 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#00E0FF]/50 text-white placeholder:text-white/40 transition-all"
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border rounded-xl sm:rounded-2xl focus:outline-none text-white placeholder:text-white/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                            fieldErrors.name
+                              ? 'border-red-500/50 focus:border-red-500/50'
+                              : 'border-white/10 focus:border-[#00E0FF]/50'
+                          }`}
                           placeholder="John Doe"
                         />
+                        {fieldErrors.name && touched.name && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-1.5 text-xs sm:text-sm text-red-400"
+                          >
+                            {fieldErrors.name}
+                          </motion.p>
+                        )}
                       </div>
 
                       <div>
@@ -121,9 +342,24 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#00E0FF]/50 text-white placeholder:text-white/40 transition-all"
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border rounded-xl sm:rounded-2xl focus:outline-none text-white placeholder:text-white/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                            fieldErrors.email
+                              ? 'border-red-500/50 focus:border-red-500/50'
+                              : 'border-white/10 focus:border-[#00E0FF]/50'
+                          }`}
                           placeholder="john@example.com"
                         />
+                        {fieldErrors.email && touched.email && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-1.5 text-xs sm:text-sm text-red-400"
+                          >
+                            {fieldErrors.email}
+                          </motion.p>
+                        )}
                       </div>
                     </div>
 
@@ -139,9 +375,24 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                           required
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#00E0FF]/50 text-white placeholder:text-white/40 transition-all"
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border rounded-xl sm:rounded-2xl focus:outline-none text-white placeholder:text-white/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                            fieldErrors.phone
+                              ? 'border-red-500/50 focus:border-red-500/50'
+                              : 'border-white/10 focus:border-[#00E0FF]/50'
+                          }`}
                           placeholder="+91 9759654902"
                         />
+                        {fieldErrors.phone && touched.phone && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-1.5 text-xs sm:text-sm text-red-400"
+                          >
+                            {fieldErrors.phone}
+                          </motion.p>
+                        )}
                       </div>
 
                       <div>
@@ -154,7 +405,13 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                           required
                           value={formData.service}
                           onChange={handleChange}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#00E0FF]/50 text-white transition-all appearance-none cursor-pointer"
+                          onBlur={handleBlur}
+                          disabled={isSubmitting}
+                          className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border rounded-xl sm:rounded-2xl focus:outline-none text-white transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+                            fieldErrors.service
+                              ? 'border-red-500/50 focus:border-red-500/50'
+                              : 'border-white/10 focus:border-[#00E0FF]/50'
+                          }`}
                         >
                           <option value="" className="bg-[#0A0A12]">Select a service</option>
                           {services.map((service) => (
@@ -163,12 +420,26 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                             </option>
                           ))}
                         </select>
+                        {fieldErrors.service && touched.service && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-1.5 text-xs sm:text-sm text-red-400"
+                          >
+                            {fieldErrors.service}
+                          </motion.p>
+                        )}
                       </div>
                     </div>
 
                     <div>
                       <label htmlFor="message" className="block text-sm sm:text-base text-white/80 mb-1.5 sm:mb-2">
                         Message
+                        {formData.message && (
+                          <span className="ml-2 text-white/40 text-xs">
+                            ({formData.message.length}/500)
+                          </span>
+                        )}
                       </label>
                       <textarea
                         id="message"
@@ -176,19 +447,45 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                         rows={3}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#00E0FF]/50 text-white placeholder:text-white/40 transition-all resize-none"
+                        onBlur={handleBlur}
+                        disabled={isSubmitting}
+                        className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border rounded-xl sm:rounded-2xl focus:outline-none text-white placeholder:text-white/40 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed ${
+                          fieldErrors.message
+                            ? 'border-red-500/50 focus:border-red-500/50'
+                            : 'border-white/10 focus:border-[#00E0FF]/50'
+                        }`}
                         placeholder="Tell us about your requirements..."
+                        maxLength={500}
                       />
+                      {fieldErrors.message && touched.message && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-1.5 text-xs sm:text-sm text-red-400"
+                        >
+                          {fieldErrors.message}
+                        </motion.p>
+                      )}
                     </div>
 
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-3 sm:py-4 text-sm sm:text-base bg-gradient-to-r from-[#7B2EFF] to-[#00E0FF] rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#7B2EFF]/50 transition-all font-medium"
+                      disabled={isSubmitting}
+                      whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                      whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                      className="w-full py-3 sm:py-4 text-sm sm:text-base bg-gradient-to-r from-[#7B2EFF] to-[#00E0FF] rounded-xl sm:rounded-2xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#7B2EFF]/50 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-4 h-4 sm:w-5 sm:h-5" />
-                      Submit Enquiry
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+                          Submit Enquiry
+                        </>
+                      )}
                     </motion.button>
                   </form>
                 </>

@@ -20,7 +20,7 @@ export default function Footer({ onOpenModal }: FooterProps) {
           <div>
             <Link href="/" className="inline-block mb-4">
               <span className="bg-gradient-to-r from-[#7B2EFF] via-[#00E0FF] to-[#7B2EFF] bg-clip-text text-transparent">
-                UNITECH<span className="opacity-80">CYBER</span>
+                UNITECHCYBER
               </span>
             </Link>
             <p className="text-white/60 mb-6">

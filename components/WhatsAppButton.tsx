@@ -6,7 +6,6 @@ import { motion } from 'motion/react';
 export default function WhatsAppButton() {
   const phoneNumber = '+919759654902'; // Replace with actual WhatsApp number
   const message = 'Hello! I would like to know more about your IT services.';
-  
   const handleClick = () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
