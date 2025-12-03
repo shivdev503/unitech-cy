@@ -24,7 +24,7 @@ export default function Footer({ onOpenModal }: FooterProps) {
               </span>
             </Link>
             <p className="text-white/60 mb-6">
-              Modern IT Hardware & Cybersecurity Solutions for Future-Ready Businesses.
+              Modern IT Hardware & Software Solutions for Future-Ready Businesses.
             </p>
             <div className="flex gap-4">
               <motion.a

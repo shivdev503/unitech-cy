@@ -31,12 +31,12 @@ export default function Header({ onOpenModal }: HeaderProps) {
   }, [pathname]);
 
   const services = [
+    { name: 'Web & App Development', path: '/web-development' },
     { name: 'IT Hardware Services', path: '/it-hardware' },
     { name: 'Software Solutions', path: '/software-solutions' },
     { name: 'Network Setup & Security', path: '/network-setup' },
     { name: 'Cybersecurity Solutions', path: '/cybersecurity' },
     { name: 'Remote IT Support', path: '/remote-support' },
-    { name: 'Web Development', path: '/web-development' },
   ];
 
   return (

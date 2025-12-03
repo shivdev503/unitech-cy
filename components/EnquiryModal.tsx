@@ -32,12 +32,12 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const services = [
+    'Website Development',
     'IT Hardware Maintenance',
     'Software Installation & Licensing',
     'Network Setup & Security',
     'Cybersecurity Solutions',
     'Remote IT Support',
-    'Website Development',
   ];
 
   // Validation functions

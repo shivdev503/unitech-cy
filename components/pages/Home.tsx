@@ -30,6 +30,13 @@ export default function Home({ onOpenModal }: HomeProps) {
 
   const services = [
     {
+      icon: Globe,
+      title: 'Website & App Development',
+      description: 'Modern, responsive, SEO-optimized websites and web applications tailored to your business needs.',
+      link: '/web-development',
+      color: 'from-blue-600 to-purple-600',
+    },
+    {
       icon: Server,
       title: 'IT Hardware Maintenance',
       description: 'Professional repair and maintenance for all your IT equipment including laptops, desktops, servers, and peripherals.',
@@ -63,13 +70,6 @@ export default function Home({ onOpenModal }: HomeProps) {
       description: '24/7 remote technical assistance with fast response times for all your IT challenges.',
       link: '/remote-support',
       color: 'from-pink-500 to-purple-500',
-    },
-    {
-      icon: Globe,
-      title: 'Website Development',
-      description: 'Modern, responsive, SEO-optimized websites and web applications tailored to your business needs.',
-      link: '/web-development',
-      color: 'from-blue-600 to-purple-600',
     },
   ];
 
@@ -191,7 +191,7 @@ export default function Home({ onOpenModal }: HomeProps) {
             </motion.div>
 
             <h1 className="mb-6 bg-gradient-to-r from-white via-[#00E0FF] to-white bg-clip-text text-transparent max-w-5xl mx-auto leading-tight">
-              Modern IT Hardware & Cybersecurity Solutions for Future-Ready Businesses
+              Modern IT Hardware & Software Solutions for Future-Ready Businesses
             </h1>
 
             <motion.p
@@ -289,7 +289,7 @@ export default function Home({ onOpenModal }: HomeProps) {
                   >
                     {/* Glow Effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#7B2EFF]/0 to-[#00E0FF]/0 group-hover:from-[#7B2EFF]/10 group-hover:to-[#00E0FF]/10 transition-all" />
-                    
+
                     {/* Icon */}
                     <div className={`relative inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-r ${service.color} rounded-2xl shadow-lg`}>
                       <service.icon className="w-8 h-8 text-white" />
@@ -334,13 +334,13 @@ export default function Home({ onOpenModal }: HomeProps) {
                 Your Trusted IT Partner for Digital Transformation
               </h2>
               <p className="text-white/70 mb-6 leading-relaxed">
-                UNITECHCYBER is a leading provider of comprehensive IT solutions, specializing in hardware services, 
-                cybersecurity, network infrastructure, and web development. With years of experience and a team of 
+                UNITECHCYBER is a leading provider of comprehensive IT solutions, specializing in hardware services,
+                cybersecurity, network infrastructure, and web development. With years of experience and a team of
                 certified professionals, we help businesses navigate the complexities of modern technology.
               </p>
               <p className="text-white/70 mb-8 leading-relaxed">
-                Our mission is to empower organizations with reliable, secure, and scalable IT infrastructure that 
-                drives growth and innovation. We pride ourselves on delivering excellence through proactive support, 
+                Our mission is to empower organizations with reliable, secure, and scalable IT infrastructure that
+                drives growth and innovation. We pride ourselves on delivering excellence through proactive support,
                 cutting-edge solutions, and unwavering commitment to client success.
               </p>
 
@@ -554,11 +554,10 @@ export default function Home({ onOpenModal }: HomeProps) {
                     <button
                       key={index}
                       onClick={() => setCurrentTestimonial(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        index === currentTestimonial
+                      className={`w-2 h-2 rounded-full transition-all ${index === currentTestimonial
                           ? 'w-8 bg-gradient-to-r from-[#7B2EFF] to-[#00E0FF]'
                           : 'bg-white/20'
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
