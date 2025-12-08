@@ -11,8 +11,8 @@ export const metadata: Metadata = {
       { url: '/favicon-16x16.png', type: 'image/png' },
       { url: '/favicon-32x32.png', type: 'image/png' },
     ],
-    apple: '/cyberlogo.png',
-    shortcut: '/cyberlogo.png',
+    apple: '/cyberlogo.svg',
+    shortcut: '/cyberlogo.svg',
   },
   metadataBase: new URL('https://unitechcyber.com'),
   alternates: {
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     title: 'UNITECHCYBER — IT Hardware, Software & Web App Solutions (Gurgaon, Delhi, Noida)',
     description: 'Specialized IT hardware maintenance, software installation & licensing, and web & app development for businesses in Gurgaon, Delhi & Noida. Onsite & remote support — free consultation.',
     siteName: 'UNITECHCYBER',
-    // images: [
-    //   {
-    //     url: 'https://unitechcyber.com/og-image.jpg',
-    //     width: 1200,
-    //     height: 630,
-    //     alt: 'UNITECHCYBER - IT Hardware, Software & Web App Solutions',
-    //   },
-    // ],
+    images: [
+      {
+        url: 'https://unitechcyber.com/cyberlogo.svg',
+        width: 1200,
+        height: 630,
+        alt: 'UNITECHCYBER - IT Hardware, Software & Web App Solutions',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -60,7 +60,7 @@ export default function RootLayout({
               '@type': 'LocalBusiness',
               name: 'UNITECHCYBER',
               url: 'https://unitechcyber.com',
-              logo: 'https://unitechcyber.com/cyberlogo.png',
+              logo: 'https://unitechcyber.com/cyberlogo.svg',
               telephone: '+919759654902',
               email: 'unitechcyber1@gmail.com',
               description: 'IT hardware maintenance, software installation & licensing, and web & app development with onsite and remote support.',
@@ -103,6 +103,11 @@ export default function RootLayout({
             }),
           }}
         />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/cyberlogo.svg" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="min-h-screen bg-[#0A0A12] text-white overflow-x-hidden">
         <Providers>
