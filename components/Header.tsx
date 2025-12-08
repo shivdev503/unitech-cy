@@ -57,7 +57,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
             >
               <div className="relative w-54 h-12 flex-shrink-0">
                 <Image
-                  src="/cyberlogo6.svg"
+                  src="/cyberlogo.svg"
                   alt="UNITECHCYBER Logo"
                   width={200}
                   height={60}
