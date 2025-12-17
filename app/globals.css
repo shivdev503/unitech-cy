@@ -184,3 +184,92 @@ html {
   background: rgba(123, 46, 255, 0.5);
 }
 
+/* ==============================
+   Footer Content Styling
+   ============================== */
+
+.footer-content {
+  margin: 0 auto;
+  padding: 64px 20px;
+  color: #d1d5db; /* light gray text */
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Headings */
+.footer-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.footer-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+
+/* Paragraphs */
+.footer-content p {
+  margin-bottom: 16px;
+}
+
+/* Lists */
+.footer-content ul {
+  margin: 16px 0 24px 20px;
+  padding: 0;
+}
+
+.footer-content ul li {
+  margin-bottom: 10px;
+  padding-left: 6px;
+}
+
+/* Links */
+.footer-content a {
+  color: #38bdf8; /* cyan-blue accent */
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+/* Strong text */
+.footer-content strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ==============================
+   Responsive Adjustments
+   ============================== */
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 48px 16px;
+    font-size: 14px;
+  }
+
+  .footer-content h2 {
+    font-size: 20px;
+  }
+
+  .footer-content h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 40px 14px;
+    line-height: 1.6;
+  }
+
+  .footer-content ul {
+    margin-left: 16px;
+  }
+}

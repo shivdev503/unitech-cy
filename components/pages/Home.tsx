@@ -20,6 +20,7 @@ import {
   Star,
 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import FooterContent from '../FooterContent';
 
 interface HomeProps {
   onOpenModal: () => void;
@@ -606,6 +607,7 @@ export default function Home({ onOpenModal }: HomeProps) {
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </motion.div>
+            <FooterContent />
         </div>
       </section>
     </div>
