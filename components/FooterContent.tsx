@@ -121,6 +121,5 @@ export default function FooterContent(): JSX.Element {
                 <a href="mailto:unitechcyber1@gmail.com"> unitechcyber1@gmail.com</a>
             </p>
         </section>
-
     );
 }

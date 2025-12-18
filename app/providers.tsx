@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EnquiryModal from '@/components/EnquiryModal';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import CookieConsent from '@/components/CookieConsent';
+// import CookieConsent from '@/components/CookieConsent';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <Footer onOpenModal={onOpenModal} />
         <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         <WhatsAppButton />
-        <CookieConsent />
+        {/* <CookieConsent /> */}
       </ModalProvider>
     </ThemeProvider>
   );
