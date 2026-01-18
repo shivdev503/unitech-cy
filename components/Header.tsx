@@ -55,7 +55,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
               whileHover={{ scale: 1.05 }}
               className="relative z-10 flex items-center gap-3"
             >
-              <div className="relative w-54 h-12 flex-shrink-0">
+              <div className="relative w-44 h-12 flex-shrink-0">
                 <Image
                   src="/cyberlogo.svg"
                   alt="UNITECHCYBER Logo"

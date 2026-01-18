@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import FooterContent from '../FooterContent';
+import InitialAvatar from '../InitialAvataar';
 
 interface HomeProps {
   onOpenModal: () => void;
@@ -99,27 +100,49 @@ export default function Home({ onOpenModal }: HomeProps) {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'CTO, TechCorp Industries',
-      content: 'UNITECHCYBER transformed our IT infrastructure completely. Their cybersecurity solutions and proactive support have been invaluable to our operations.',
+      name: 'Praveen Rao',
+      role: 'Founder, NamoHomes',
+      content: 'We got our website and mobile app developed from UNITECHCYBER. The UI/UX, speed, and support are exceptional. Highly recommended!',
       rating: 5,
-      avatar: 'https://i.pravatar.cc/150?img=1',
+      avatar: 'https://i.pravatar.cc/150?img=12',
     },
     {
-      name: 'Michael Chen',
-      role: 'IT Manager, Global Solutions',
-      content: 'Outstanding service! Their team is incredibly responsive and knowledgeable. We\'ve seen a 40% reduction in downtime since partnering with them.',
+      name: 'Rohan Mehta',
+      role: 'CTO, Bharat Logistics Pvt Ltd',
+      content: 'Their IT hardware maintenance and AMC support helped reduce device downtime by 45%. Team response time is excellent!',
       rating: 5,
-      avatar: 'https://i.pravatar.cc/150?img=2',
+      avatar: 'https://i.pravatar.cc/150?img=18',
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'CEO, StartupHub',
-      content: 'From network setup to ongoing support, UNITECHCYBER has been our trusted IT partner. Highly professional and reliable.',
+      name: 'Aditi Sharma',
+      role: 'CEO, UrbanStart Technologies',
+      content: 'UNITECHCYBER handled our software installation & licensing end-to-end. Reliable and highly professional service!',
       rating: 5,
-      avatar: 'https://i.pravatar.cc/150?img=3',
+      avatar: 'https://i.pravatar.cc/150?img=32',
+    },
+    {
+      name: 'Kunal Singh',
+      role: 'IT Manager, CoworkHub India',
+      content: 'Their network setup & security deployment strengthened our internal infrastructure. Smooth execution and great documentation.',
+      rating: 5,
+      avatar: 'https://i.pravatar.cc/150?img=25',
+    },
+    {
+      name: 'Sana Rizvi',
+      role: 'Founder, BrandNest Marketing',
+      content: 'UNITECHCYBER transformed our IT infrastructure and improved our data security. Their cybersecurity and proactive support are top class.',
+      rating: 5,
+      avatar: 'https://i.pravatar.cc/150?img=47',
+    },
+    {
+      name: 'Arnav Kapoor',
+      role: 'Operations Head, FinServe India',
+      content: 'Their remote IT support saved us multiple times during urgent breakdowns. Quick resolution and skilled technicians!',
+      rating: 5,
+      avatar: 'https://i.pravatar.cc/150?img=41',
     },
   ];
+
 
   const caseStudies = [
     {
@@ -517,10 +540,13 @@ export default function Home({ onOpenModal }: HomeProps) {
                 className="p-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <ImageWithFallback
+                  {/* <ImageWithFallback
                     src={testimonials[currentTestimonial].avatar}
                     alt={testimonials[currentTestimonial].name}
                     className="w-16 h-16 rounded-full border-2 border-[#00E0FF]/50"
+                  /> */}
+                  <InitialAvatar
+                    name={testimonials[currentTestimonial].name}
                   />
                   <div>
                     <h4 className="text-white">{testimonials[currentTestimonial].name}</h4>
@@ -556,8 +582,8 @@ export default function Home({ onOpenModal }: HomeProps) {
                       key={index}
                       onClick={() => setCurrentTestimonial(index)}
                       className={`w-2 h-2 rounded-full transition-all ${index === currentTestimonial
-                          ? 'w-8 bg-gradient-to-r from-[#7B2EFF] to-[#00E0FF]'
-                          : 'bg-white/20'
+                        ? 'w-8 bg-gradient-to-r from-[#7B2EFF] to-[#00E0FF]'
+                        : 'bg-white/20'
                         }`}
                     />
                   ))}
@@ -607,7 +633,7 @@ export default function Home({ onOpenModal }: HomeProps) {
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </motion.div>
-            <FooterContent />
+          <FooterContent />
         </div>
       </section>
     </div>

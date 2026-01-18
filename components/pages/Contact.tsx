@@ -30,7 +30,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Our Location',
-      content: 'Sector 48, Gurugram, Haryana, India',
+      content: 'Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana, India',
     },
     {
       icon: Phone,

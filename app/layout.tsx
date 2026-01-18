@@ -67,7 +67,7 @@ export default function RootLayout({
               description: 'IT hardware maintenance, software installation & licensing, and web & app development with onsite and remote support.',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Sector 48',
+                streetAddress: 'DLF Phase 1, Sector 26A',
                 addressLocality: 'Gurugram',
                 addressRegion: 'Haryana',
                 postalCode: '122018',
@@ -108,7 +108,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/cyberlogo.svg" />
-        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="min-h-screen bg-[#0A0A12] text-white overflow-x-hidden">
         <Providers>

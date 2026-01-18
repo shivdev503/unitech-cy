@@ -122,7 +122,7 @@ export default function Footer({ onOpenModal }: FooterProps) {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#00E0FF] flex-shrink-0 mt-0.5" />
                 <span className="text-white/60">
-                  Sector 48, Gurugram, Haryana, India
+                  Metro station, Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana 122002
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -139,10 +139,9 @@ export default function Footer({ onOpenModal }: FooterProps) {
               </li>
             </ul>
 
-            <motion.a
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="#"
               className="inline-flex items-center gap-2 mt-6 px-4 py-2 bg-white/5 border border-white/10 rounded-full hover:bg-gradient-to-r hover:from-[#7B2EFF]/20 hover:to-[#00E0FF]/20 hover:border-[#00E0FF]/50 transition-all"
             >
               <a
@@ -153,7 +152,7 @@ export default function Footer({ onOpenModal }: FooterProps) {
                 <Download className="w-4 h-4" />
                 <span className="text-sm">Download Brochure</span>
               </a>
-            </motion.a>
+            </motion.div>
           </div>
         </div>
 
