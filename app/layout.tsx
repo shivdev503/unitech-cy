@@ -67,13 +67,13 @@ export default function RootLayout({
               description: 'IT hardware maintenance, software installation & licensing, and web & app development with onsite and remote support.',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'DLF Phase 1, Sector 26A',
+                streetAddress: 'Premises No 1, 2nd Floor, Metro station, Golf Course Rd, DLF Phase 1, Sector 26A',
                 addressLocality: 'Gurugram',
                 addressRegion: 'Haryana',
-                postalCode: '122018',
+                postalCode: '122002',
                 addressCountry: 'IN',
               },
-              openingHours: 'Mo-Sa 09:00-18:00',
+              openingHours: 'Mo-Sa 10:00-19:00',
               serviceArea: [
                 { '@type': 'Place', name: 'Gurgaon' },
                 { '@type': 'Place', name: 'Delhi' },

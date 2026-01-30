@@ -10,7 +10,7 @@ export default function FooterContent(): JSX.Element {
             <h2>UNITECHCYBER – Trusted IT Hardware, Software & Web Solutions Partner in NCR</h2>
 
             <p>
-                <strong>UNITECHCYBER</strong> is a professional IT services company based in
+                <strong>Unitechcyber Technologies Pvt Ltd</strong> is a professional IT services company based in
                 <strong> Gurgaon</strong>, delivering reliable
                 <strong> IT hardware maintenance, software installation & licensing, network infrastructure, cybersecurity,</strong>
                 and <strong>web & app development services</strong> for businesses across

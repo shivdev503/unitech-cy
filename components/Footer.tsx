@@ -122,7 +122,7 @@ export default function Footer({ onOpenModal }: FooterProps) {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#00E0FF] flex-shrink-0 mt-0.5" />
                 <span className="text-white/60">
-                  Metro station, Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana 122002
+                 Premises No 1, 2nd Floor, Metro station, Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana 122002
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -136,6 +136,11 @@ export default function Footer({ onOpenModal }: FooterProps) {
                 <a href="mailto:unitechcyber1@gmail.com" className="text-white/60 hover:text-[#00E0FF] transition-colors">
                   unitechcyber1@gmail.com
                 </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <p className="text-white/60 hover:text-[#00E0FF] transition-colors">
+                  Unitechcyber Technologies Pvt Ltd
+                </p>
               </li>
             </ul>
 

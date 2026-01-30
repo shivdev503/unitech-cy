@@ -30,7 +30,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Our Location',
-      content: 'Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana, India',
+      content: 'Premises No 1, 2nd Floor, Metro Station, Golf Course Rd, DLF Phase 1, Sector 26A, Gurugram, Haryana, India',
     },
     {
       icon: Phone,
